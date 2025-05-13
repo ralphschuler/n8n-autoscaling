@@ -34,13 +34,13 @@ volumes:
     driver_opts:
       type: nfs
       o: "addr=10.10.10.10,nolock,soft,rw"
-      device: ":/data/n8n/main/"
+      device: ":/data/n8n/app/"
   n8n_webhook:
     driver: local
     driver_opts:
       type: nfs
       o: "addr=10.10.10.10,nolock,soft,rw"
-      device: ":/data/n8n/worker/"
+      device: ":/data/n8n/webhook/"
 
 networks:
   n8n-network:
