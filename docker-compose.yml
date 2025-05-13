@@ -5,6 +5,18 @@ volumes:
       type: nfs
       o: "addr=10.10.10.10,nolock,soft,rw"
       device: ":/data/n8n/traefik/"
+  qdrant_data:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=10.10.10.10,nolock,soft,rw"
+      device: ":/data/n8n/qdrant/"
+  ollama_data:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=10.10.10.10,nolock,soft,rw"
+      device: ":/data/n8n/ollama/"
   postgres_data:
     driver: local
     driver_opts:
