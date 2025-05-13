@@ -90,7 +90,6 @@ services:
       - qdrant_data:/qdrant/storage
 
   ollama:
-    profiles: ["cpu"]
     image: ollama/ollama:latest
     restart: unless-stopped
     networks:
@@ -101,10 +100,10 @@ services:
       - ollama_data:/root/.ollama
 
   ollama-pull-llama:
-    profiles: ["cpu"]
     image: ollama/ollama:latest
-    networks: ["demo"]
-    container_name: ollama-pull-llama
+    restart: unless-stopped
+    networks:
+      - n8n-network
     volumes:
       - ollama_data:/root/.ollama
     entrypoint: /bin/sh
