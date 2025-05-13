@@ -29,18 +29,6 @@ volumes:
       type: nfs
       o: "addr=10.10.10.10,nolock,soft,rw"
       device: ":/data/n8n/redis/"
-  n8n_main:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: "addr=10.10.10.10,nolock,soft,rw"
-      device: ":/data/n8n/app/"
-  n8n_webhook:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: "addr=10.10.10.10,nolock,soft,rw"
-      device: ":/data/n8n/webhook/"
 
 networks:
   n8n-network:
@@ -54,7 +42,6 @@ x-n8n: &service-n8n
   restart: unless-stopped
   environment:
     - N8N_DIAGNOSTICS_ENABLED=${N8N_DIAGNOSTICS_ENABLED}
-    - N8N_USER_FOLDER=${N8N_USER_FOLDER}
     - N8N_PORT=${N8N_PORT}
     - N8N_SECURE_COOKIE=${N8N_SECURE_COOKIE}
     - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=${N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS}
@@ -182,8 +169,6 @@ services:
     ports:
       - "5678:5678"
       - "5679:5679"
-    volumes:
-      - n8n_main:/n8n/main
     depends_on:
       postgres:
         condition: service_healthy
@@ -208,8 +193,6 @@ services:
   n8n-webhook:
     <<: *service-n8n
     command: sh /webhook
-    volumes:
-      - n8n_webhook:/n8n/main
     depends_on:
       n8n:
         condition: service_healthy

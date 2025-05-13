@@ -33,7 +33,7 @@ FROM node
 # Install n8n
 RUN npm install -g n8n
 
-RUN npm install -g \
+RUN mkdir -p /n8n/main/.n8n/nodes && cd /n8n/main/.n8n/nodes && npm install \
     n8n-nodes-mcp \
     n8n-nodes-document-generator \
     n8n-nodes-globals \
