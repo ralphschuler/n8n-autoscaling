@@ -12,7 +12,7 @@ RUN apt-get update \
     && apt-get -y autoclean
 
 # nvm environment variables
-ENV NVM_DIR /usr/local/nvm
+ENV NVM_DIR /root/.nvm
 ENV NODE_VERSION 20.9.0
 
 # install nvm
@@ -32,6 +32,9 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 FROM node
 # Install n8n
 RUN npm install -g n8n
+
+RUN ls $NODE_PATH
+RUN ls $NODE_PATH/n8n
 
 RUN cd $NODE_PATH/n8n && npm install \
     n8n-nodes-mcp \
