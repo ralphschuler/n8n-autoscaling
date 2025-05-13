@@ -33,7 +33,7 @@ FROM node
 # Install n8n
 RUN npm install -g n8n
 
-RUN cd /usr/local/lib/node_modules/n8n && npm install \
+RUN cd $NODE_PATH/n8n && npm install \
     n8n-nodes-mcp \
     n8n-nodes-document-generator \
     n8n-nodes-globals \
@@ -44,7 +44,7 @@ RUN cd /usr/local/lib/node_modules/n8n && npm install \
     n8n-nodes-data-validation
 
 # Add npm global bin to PATH to ensure n8n executable is found
-ENV PATH="/usr/local/lib/node_modules/n8n/bin:$PATH"
+ENV PATH="$NODE_PATH/n8n/bin:$PATH"
 
 # Set environment variables
 ENV N8N_LOG_LEVEL=info
