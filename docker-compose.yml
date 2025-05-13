@@ -65,7 +65,6 @@ x-n8n: &service-n8n
     - N8N_COMMAND_RESPONSE_URL=${N8N_COMMAND_RESPONSE_URL}
     - N8N_TASK_BROKER_PORT=${N8N_TASK_BROKER_PORT}
     - NODE_FUNCTION_ALLOW_EXTERNAL=ajv,ajv-formats,puppeteer
-    - PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
 services:
   cloudflared:

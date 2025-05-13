@@ -1,44 +1,43 @@
-FROM node:20
-#need platform flag before n20 if building on arm
+FROM debian:latest as node
 
-# Install dependencies for Puppeteer
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libatk1.0-0 \
-    libatk-bridge2.0-0 \
-    libcups2 \
-    libdrm2 \
-    libxkbcommon0 \
-    libxcomposite1 \
-    libxdamage1 \
-    libxrandr2 \
-    libasound2 \
-    libpangocairo-1.0-0 \
-    libpango-1.0-0 \
-    libgbm1 \
-    libnss3 \
-    libxshmfence1 \
-    ca-certificates \
-    fonts-liberation \
-    libappindicator3-1 \
-    libgtk-3-0 \
-    wget \
-    xdg-utils \
-    lsb-release \
-    fonts-noto-color-emoji && rm -rf /var/lib/apt/lists/*
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+RUN apt-get update \
+    && apt-get install -y \
+    curl build-essential \
+    autoconf automake cmake \
+    git gcc g++ clang \
+    libglib2.0-dev libssl-dev \
+    zlib1g-dev python3-dev \
+    python3-venv python3-pip \
+    && apt-get -y autoclean
 
-# Install Chromium browser
-RUN apt-get update && apt-get install -y chromium && \
-    rm -rf /var/lib/apt/lists/*
+# nvm environment variables
+ENV NVM_DIR /usr/local/nvm
+ENV NODE_VERSION 20.9.0
 
-# Install n8n and Puppeteer
-RUN npm install -g n8n puppeteer
+# install nvm
+# https://github.com/creationix/nvm#install-script
+RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
+
+# install node and npm
+RUN source $NVM_DIR/nvm.sh \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use default
+
+# add node and npm to path so the commands are available
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+
+FROM node
+# Install n8n
+RUN npm install -g n8n
+
 # Add npm global bin to PATH to ensure n8n executable is found
 ENV PATH="/usr/local/lib/node_modules/n8n/bin:$PATH"
 
 # Set environment variables
 ENV N8N_LOG_LEVEL=info
-ENV NODE_FUNCTION_ALLOW_EXTERNAL=ajv,ajv-formats,puppeteer
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
 # Expose the n8n port
 EXPOSE 5678
