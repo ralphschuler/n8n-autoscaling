@@ -182,7 +182,7 @@ services:
       - "5678:5678"
       - "5679:5679"
     volumes:
-      - n8n_main:/n8n
+      - n8n_main:/home/node/.n8n
     depends_on:
       postgres:
         condition: service_healthy
@@ -208,7 +208,7 @@ services:
     <<: *service-n8n
     command: sh /webhook
     volumes:
-      - n8n_webhook:/n8n
+      - n8n_webhook:/home/node/.n8n
     depends_on:
       n8n:
         condition: service_healthy
@@ -232,7 +232,6 @@ services:
         condition: service_healthy
     networks:
       - n8n-network
-    #     - shark
     healthcheck:
       test: ["CMD", "node", "-v"]
       interval: 5s
