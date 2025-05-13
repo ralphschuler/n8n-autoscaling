@@ -31,7 +31,15 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 FROM node
 # Install n8n
-RUN npm install -g n8n
+RUN npm install -g n8n \
+    n8n-nodes-mcp \
+    n8n-nodes-document-generator \
+    n8n-nodes-globals \
+    n8n-nodes-edit-image-plus \
+    n8n-nodes-text-manipulation \
+    n8n-nodes-pgp \
+    n8n-nodes-puppeteer \
+    n8n-nodes-data-validation
 
 # Add npm global bin to PATH to ensure n8n executable is found
 ENV PATH="/usr/local/lib/node_modules/n8n/bin:$PATH"
