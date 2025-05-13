@@ -1,4 +1,10 @@
 volumes:
+  traefik_data:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=10.10.10.10,nolock,soft,rw"
+      device: ":/data/traefik_data/"
   postgres_data:
     driver: local
     driver_opts:
