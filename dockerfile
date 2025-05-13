@@ -1,44 +1,30 @@
 FROM debian:bookworm as node
 
-# Install dependencies for Puppeteer
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libatk1.0-0 \
-    libatk-bridge2.0-0 \
-    libcups2 \
-    libdrm2 \
-    libxkbcommon0 \
-    libxcomposite1 \
-    libxdamage1 \
-    libxrandr2 \
-    libasound2 \
-    libpangocairo-1.0-0 \
-    libpango-1.0-0 \
-    libgbm1 \
-    libnss3 \
-    libxshmfence1 \
-    ca-certificates \
-    fonts-liberation \
-    libappindicator3-1 \
-    libgtk-3-0 \
-    wget \
-    xdg-utils \
-    lsb-release \
-    fonts-noto-color-emoji && rm -rf /var/lib/apt/lists/*
-
 # Install Chromium browser
 RUN apt-get update && apt-get install -y chromium && \
     rm -rf /var/lib/apt/lists/*
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-RUN apt-get update \
-    && apt-get install -y \
+RUN apt-get update && \
+    apt-get install -y \
     curl build-essential \
     autoconf automake cmake \
     git gcc g++ clang \
     libglib2.0-dev libssl-dev \
     zlib1g-dev python3-dev \
     python3-venv python3-pip \
-    && apt-get -y autoclean
+    libatk1.0-0 libatk-bridge2.0-0 \
+    libcups2 libdrm2 libxkbcommon0 \
+    libxcomposite1 libxdamage1 \
+    libxrandr2 libasound2 \
+    libpangocairo-1.0-0 libpango-1.0-0 \
+    libgbm1 libnss3 libxshmfence1 \
+    ca-certificates fonts-liberation \
+    libappindicator3-1 libgtk-3-0 wget \
+    xdg-utils lsb-release fonts-noto-color-emoji \
+    chromium && \
+    apt-get -y autoclean && \
+    rm -rf /var/lib/apt/lists/*
 
 # nvm environment variables
 ENV NVM_DIR /usr/local/nvm
