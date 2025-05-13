@@ -1,8 +1,28 @@
 volumes:
   postgres_data:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=10.10.10.10,nolock,soft,rw"
+      device: ":/data/n8n_postgress/"
   redis_data:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=10.10.10.10,nolock,soft,rw"
+      device: ":/data/n8n_redis/"
   n8n_main:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=10.10.10.10,nolock,soft,rw"
+      device: ":/data/n8n_main/"
   n8n_webhook:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: "addr=10.10.10.10,nolock,soft,rw"
+      device: ":/data/n8n_worker/"
 
 networks:
   n8n-network:
