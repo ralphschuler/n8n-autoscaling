@@ -101,7 +101,7 @@ services:
 
   ollama-pull-llama:
     image: ollama/ollama:latest
-    restart: never
+    restart: on-failure
     networks:
       - n8n-network
     volumes:
