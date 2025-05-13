@@ -33,16 +33,6 @@ FROM node
 # Install n8n
 RUN npm install -g n8n
 
-RUN mkdir -p /n8n/main/.n8n/nodes && cd /n8n/main/.n8n/nodes && npm install \
-    n8n-nodes-mcp \
-    n8n-nodes-document-generator \
-    n8n-nodes-globals \
-    n8n-nodes-edit-image-plus \
-    n8n-nodes-text-manipulation \
-    n8n-nodes-pgp \
-    n8n-nodes-puppeteer \
-    n8n-nodes-data-validation
-
 # Add npm global bin to PATH to ensure n8n executable is found
 ENV PATH="$NODE_PATH/n8n/bin:$PATH"
 
