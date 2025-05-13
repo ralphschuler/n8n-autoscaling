@@ -77,6 +77,7 @@ x-n8n: &service-n8n
     - N8N_COMMAND_RESPONSE_URL=${N8N_COMMAND_RESPONSE_URL}
     - N8N_TASK_BROKER_PORT=${N8N_TASK_BROKER_PORT}
     - N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=${N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE}
+    - NODE_FUNCTION_ALLOW_EXTERNAL=${NODE_FUNCTION_ALLOW_EXTERNAL}
 
 services:
   qdrant:
@@ -175,25 +176,6 @@ services:
       retries: 10
     networks:
       - n8n-network
-
-  n8n-community-packages:
-    <<: *service-n8n
-    restart: on-failure
-    command: >
-      sh -c "
-        mkdir -p /n8n/main/.n8n/nodes && \
-        cd /n8n/main/.n8n/nodes && npm install \
-        n8n-nodes-mcp \
-        n8n-nodes-document-generator \
-        n8n-nodes-globals \
-        n8n-nodes-edit-image-plus \
-        n8n-nodes-text-manipulation \
-        n8n-nodes-pgp \
-        n8n-nodes-puppeteer \
-        n8n-nodes-data-validation
-        "
-    volumes:
-      - n8n_main:/n8n/main
 
   n8n:
     <<: *service-n8n
