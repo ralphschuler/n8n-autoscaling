@@ -49,7 +49,6 @@ FROM node
 RUN npm install -g n8n
 
 RUN mkdir -p $HOME/.n8n/nodes && cd $HOME/.n8n/nodes && npm install \
-    n8n-nodes-mcp \
     n8n-nodes-document-generator \
     n8n-nodes-globals \
     n8n-nodes-edit-image-plus \
