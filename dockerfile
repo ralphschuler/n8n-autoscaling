@@ -55,7 +55,9 @@ RUN mkdir -p $HOME/.n8n/nodes && cd $HOME/.n8n/nodes && npm install \
     n8n-nodes-text-manipulation \
     n8n-nodes-pgp \
     n8n-nodes-puppeteer \
-    n8n-nodes-data-validation
+    n8n-nodes-data-validation \
+    n8n-nodes-ffmpeg
+
 
 # Add npm global bin to PATH to ensure n8n executable is found
 ENV PATH="$NODE_PATH/n8n/bin:$PATH"
